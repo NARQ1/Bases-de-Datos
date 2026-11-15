@@ -128,14 +128,20 @@ public class Formulario extends javax.swing.JFrame {
         // TODO add your handling code here:
         String usuario=obtenerUsuario.getText();;
         String contrasena = String.valueOf(obtenerContrasena.getPassword());
+        boolean conexionExitosa=false;
 
         Conexion.setUser(usuario);
         Conexion.setPassword(contrasena);
         
         obtenerUsuario.setText("");
         obtenerContrasena.setText("");
-        if(Conexion.conectar()!= null){
+        
+        conexionExitosa= Conexion.conectar()!= null;
+        if(conexionExitosa){
             javax.swing.JOptionPane.showMessageDialog(null, "Acceso concedido!");
+            MenuPrincipal menu = new MenuPrincipal();
+            menu.setVisible(true);
+            this.dispose();
         }
         
     }//GEN-LAST:event_botonAceptarActionPerformed
