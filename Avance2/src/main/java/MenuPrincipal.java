@@ -1,3 +1,6 @@
+
+import javax.swing.ImageIcon;
+import java.awt.Image;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -16,7 +19,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
+        this.setExtendedState(MAXIMIZED_BOTH);  //Poner pantalla completa
+        
+        //Establecer icono de la aplicacion
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/nucleoDiagnostico.png")).getImage());
+        
+        //Agregar la imagen del logo al frame
+        ImageIcon icono = new ImageIcon(getClass().getResource("/imagenes/nucleoDiagnostico.png"));
+        Image img = icono.getImage().getScaledInstance(310, 250, Image.SCALE_SMOOTH);
+        labelNucleo.setIcon(new ImageIcon(img));
+        
+        //Dar texto de bienvenida
+        bienvenidaUsuario.setText("Bienvenido, " + Conexion.getUser()+"!");
+        
+
     }
 
     /**
@@ -28,21 +44,104 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        panelPrincipal = new javax.swing.JPanel();
+        labelNucleo = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        bienvenidaUsuario = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        panelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        labelNucleo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelNucleo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/nucleoDiagnostico.png"))); // NOI18N
+        panelPrincipal.add(labelNucleo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, -1, -1));
+
+        bienvenidaUsuario.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        bienvenidaUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        bienvenidaUsuario.setText("Bienvenido, Usuario");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(82, Short.MAX_VALUE)
+                .addComponent(bienvenidaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(bienvenidaUsuario, javax.swing.GroupLayout.Alignment.TRAILING)
         );
+
+        panelPrincipal.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+
+        getContentPane().add(panelPrincipal, new java.awt.GridBagConstraints());
+        getContentPane().add(jSeparator2, new java.awt.GridBagConstraints());
+
+        jMenuBar1.setBackground(new java.awt.Color(204, 204, 204));
+        jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jMenuBar1.setOpaque(true);
+
+        jMenu2.setText("EMPLEADOS");
+        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jMenuItem3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenuItem3.setText("INSERTAR");
+        jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
+        jMenu2.add(jMenuItem3);
+        jMenu2.add(jSeparator3);
+
+        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenuItem1.setText("CONSULTAS GENERALES");
+        jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
+        jMenu2.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("DOCTORES");
+        jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenuItem2.setText("INSERTAR");
+        jMenu3.add(jMenuItem2);
+        jMenu3.add(jSeparator1);
+
+        jMenuItem4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenuItem4.setText("CONSULTAS GENERALES");
+        jMenuItem4.addActionListener(this::jMenuItem4ActionPerformed);
+        jMenu3.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu3);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -68,7 +167,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new MenuPrincipal().setVisible(true));
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel bienvenidaUsuario;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JLabel labelNucleo;
+    private javax.swing.JPanel panelPrincipal;
     // End of variables declaration//GEN-END:variables
 }
