@@ -12,11 +12,13 @@ import javax.swing.JOptionPane;
  * @author nesto
  */
 public class Conexion {
+    //Atributos de nuestra clase conexion
     private static final String URL = "jdbc:postgresql://localhost:5432/nucleo_de_diagnostico";
     private static String user;
     private static String password;
     
     
+    //Metodos getter y setter para acceder a los atributos
     public static void setUser(String user) {
         Conexion.user = user;
     }
@@ -25,6 +27,11 @@ public class Conexion {
         Conexion.password = password;
     }
     
+    public static String getUser(){
+        return user;
+    }
+    
+    //Funcion para conectar a la base de datos
     public static Connection conectar(){
         
         Connection conexion=null;
