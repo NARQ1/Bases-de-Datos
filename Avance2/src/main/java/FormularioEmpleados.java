@@ -69,7 +69,10 @@ public class FormularioEmpleados extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menú - Insertar Empleado");
         getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        jPanel1.setToolTipText("");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("INSERTAR EMPLEADO");
@@ -126,6 +129,8 @@ public class FormularioEmpleados extends javax.swing.JFrame {
         jLabel10.setText("Contraseña");
 
         obtenerFecha_nac.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        obtenerFecha_nac.setToolTipText("dd/mm/AAAA");
+        obtenerFecha_nac.setOpaque(true);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -345,6 +350,11 @@ public class FormularioEmpleados extends javax.swing.JFrame {
 
             // Ejecutamos la inserción usando executeUpdate
             pstmt.executeUpdate();
+            
+            /*String nombreCorto="";
+            for(int i=0; i<nombre.length();i++){
+                nombreCorto=nombre[i]
+            }*/
             JOptionPane.showMessageDialog(null, "Se ha ingresado correctamente al empleado " + nombre + "!");
         }
         catch(SQLException e){
@@ -354,6 +364,15 @@ public class FormularioEmpleados extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        obtenerId.setText("");
+        obtenerNombre.setText("");
+        obtenerDireccion.setText("");
+        obtenerTelefono.setText("");
+        obtenerFecha_nac.setText("");
+        obtenerSexo.setText("");
+        obtenerSalario.setText("");
+        obtenerTurno.setText("");
+        obtenerContrasena.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -362,6 +381,9 @@ public class FormularioEmpleados extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
+        ConsultasEmpleados ce = new ConsultasEmpleados();
+        ce.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed

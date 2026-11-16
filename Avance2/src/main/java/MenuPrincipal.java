@@ -61,6 +61,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu Principal");
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
