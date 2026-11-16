@@ -54,10 +54,12 @@ public class Formulario extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Inicio de Sesión");
         setExtendedState(1);
         setLocationByPlatform(true);
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
+        jPanel2.setToolTipText("");
         jPanel2.setPreferredSize(new java.awt.Dimension(800, 600));
 
         botonCancelar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -68,6 +70,8 @@ public class Formulario extends javax.swing.JFrame {
         botonAceptar.setText("Aceptar");
         botonAceptar.addActionListener(this::botonAceptarActionPerformed);
 
+        obtenerUsuario.setToolTipText("");
+
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Usuario:");
 
@@ -76,6 +80,8 @@ public class Formulario extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setText("Inicio de sesión");
+
+        obtenerContrasena.setToolTipText("");
 
         jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
