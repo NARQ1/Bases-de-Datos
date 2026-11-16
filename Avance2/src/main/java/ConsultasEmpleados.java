@@ -199,10 +199,11 @@ public class ConsultasEmpleados extends javax.swing.JFrame {
         jMenu2.setText("DOCTORES");
         jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jMenuItem3.setText("jMenuItem3");
+        jMenuItem3.setText("INSERTAR");
+        jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
         jMenu2.add(jMenuItem3);
 
-        jMenuItem4.setText("jMenuItem4");
+        jMenuItem4.setText("CONSULTAS GENERALES");
         jMenu2.add(jMenuItem4);
 
         jMenuBar1.add(jMenu2);
@@ -233,6 +234,10 @@ public class ConsultasEmpleados extends javax.swing.JFrame {
     private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1MouseClicked
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
