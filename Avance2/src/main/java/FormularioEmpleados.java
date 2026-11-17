@@ -34,7 +34,6 @@ public class FormularioEmpleados extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -59,11 +58,21 @@ public class FormularioEmpleados extends javax.swing.JFrame {
         obtenerFecha_nac = new javax.swing.JFormattedTextField();
         obtenerContrasena = new javax.swing.JPasswordField();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menú - Insertar Empleado");
         getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        jPanel1.setToolTipText("");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("INSERTAR EMPLEADO");
@@ -72,6 +81,7 @@ public class FormularioEmpleados extends javax.swing.JFrame {
         jLabel2.setText("Id");
 
         obtenerId.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        obtenerId.addActionListener(this::obtenerIdActionPerformed);
 
         obtenerDireccion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
@@ -120,6 +130,8 @@ public class FormularioEmpleados extends javax.swing.JFrame {
         jLabel10.setText("Contraseña");
 
         obtenerFecha_nac.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        obtenerFecha_nac.setToolTipText("dd/mm/AAAA");
+        obtenerFecha_nac.setOpaque(true);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -230,10 +242,46 @@ public class FormularioEmpleados extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
 
+        jMenuBar1.setBackground(new java.awt.Color(204, 204, 204));
+        jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jMenuBar1.setToolTipText("");
+        jMenuBar1.setOpaque(true);
+
+        jMenu1.setText("INICIO");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenu1.addActionListener(this::jMenu1ActionPerformed);
+        jMenuBar1.add(jMenu1);
+
         jMenu3.setText("EMPLEADOS");
+        jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jMenuItem1.setText("INSERTAR");
+        jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
+        jMenu3.add(jMenuItem1);
+        jMenu3.add(jSeparator1);
+
+        jMenuItem2.setText("CONSULTAS GENERALES");
+        jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
+        jMenu3.add(jMenuItem2);
+
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("DOCTORES");
+        jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jMenuItem3.setText("INSERTAR");
+        jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
+        jMenu4.add(jMenuItem3);
+        jMenu4.add(jSeparator2);
+
+        jMenuItem4.setText("CONSULTAS GENERALES");
+        jMenuItem4.addActionListener(this::jMenuItem4ActionPerformed);
+        jMenu4.add(jMenuItem4);
+
         jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
@@ -300,6 +348,11 @@ public class FormularioEmpleados extends javax.swing.JFrame {
 
             // Ejecutamos la inserción usando executeUpdate
             pstmt.executeUpdate();
+            
+            /*String nombreCorto="";
+            for(int i=0; i<nombre.length();i++){
+                nombreCorto=nombre[i]
+            }*/
             JOptionPane.showMessageDialog(null, "Se ha ingresado correctamente al empleado " + nombre + "!");
         }
         catch(SQLException e){
@@ -309,7 +362,58 @@ public class FormularioEmpleados extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        obtenerId.setText("");
+        obtenerNombre.setText("");
+        obtenerDireccion.setText("");
+        obtenerTelefono.setText("");
+        obtenerFecha_nac.setText("");
+        obtenerSexo.setText("");
+        obtenerSalario.setText("");
+        obtenerTurno.setText("");
+        obtenerContrasena.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+              FormularioEmpleados fe = new FormularioEmpleados();
+        
+        fe.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        ConsultasEmpleados ce = new ConsultasEmpleados();
+        ce.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+ConsultasDoctores cd = new ConsultasDoctores(); 
+cd.setVisible(true);
+this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        // TODO add your handling code here:
+        MenuPrincipal mp = new MenuPrincipal();
+        mp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void obtenerIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_obtenerIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_obtenerIdActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+       FormularioDoctores fd = new FormularioDoctores();
+        fd.setVisible(true);
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -350,10 +454,17 @@ public class FormularioEmpleados extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPasswordField obtenerContrasena;
     private javax.swing.JTextField obtenerDireccion;
     private javax.swing.JFormattedTextField obtenerFecha_nac;
