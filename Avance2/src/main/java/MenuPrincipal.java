@@ -158,11 +158,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
-        ConsultasDoctores cd = new ConsultasDoctores();
-        cd.setVisible(true);
-        this.dispose();
-        
+ConsultasDoctores cd = new ConsultasDoctores(); 
+cd.setVisible(true);
+this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
@@ -170,11 +168,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-        FormularioDoctores fd = new FormularioDoctores();
-        
+       FormularioDoctores fd = new FormularioDoctores();
         fd.setVisible(true);
-        this.dispose();
+        this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**

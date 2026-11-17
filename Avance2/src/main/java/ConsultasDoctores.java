@@ -1,4 +1,9 @@
-/*
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
@@ -16,6 +21,56 @@ public class ConsultasDoctores extends javax.swing.JFrame {
      */
     public ConsultasDoctores() {
         initComponents();
+         this.setExtendedState(MAXIMIZED_BOTH);
+         
+         
+   javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tablaDoctores.getModel();
+        modelo.setRowCount(0);
+        
+        String sql = "SELECT * FROM doctor";
+        
+        // Conectar con el cliente para conectar postgres
+        try (Connection conn = Conexion.conectar();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            
+            boolean hayDatos = false;
+            
+            while (rs.next()) {
+                hayDatos = true;
+                // Obtener los datos de la base de datos
+                int id = rs.getInt("id");
+                String nombre = rs.getString("nombre");
+                String direccion = rs.getString("direccion");
+                long telefono = rs.getLong("telefono");
+                Date fecha_nac = rs.getDate("fecha_nac");
+                String sexo = rs.getString("sexo");
+                String especialidad = rs.getString("especialidad");                
+                //Insertar las variables en el JTable
+               Object[] fila = {
+                    id,
+                    nombre,
+                    direccion,
+                    telefono,
+                    fecha_nac,
+                    sexo,
+                    especialidad,
+                    "*****"
+                };
+                modelo.addRow(fila);
+            }
+            
+            if (!hayDatos) {
+                Object[] mensajeVacio = new Object[modelo.getColumnCount()];
+                mensajeVacio[0] = "No hay registros en la tabla empleado."; 
+                modelo.addRow(mensajeVacio);
+            }
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al consultar los datos: " + e.getMessage());
+        }
+        
+        
     }
 
     /**
@@ -27,15 +82,23 @@ public class ConsultasDoctores extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaDoctores = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+
+        jMenuItem2.setText("jMenuItem2");
+
+        jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menú - Consultar Doctor");
@@ -54,6 +117,22 @@ public class ConsultasDoctores extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
 
+        tablaDoctores.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nombre", "Direccion", "Telefono", "Fecha_nac", "Sexo", "Especialidad", "Contraseña"
+            }
+        ));
+        jScrollPane1.setViewportView(tablaDoctores);
+
+        getContentPane().add(jScrollPane1, new java.awt.GridBagConstraints());
+
         jMenuBar1.setBackground(new java.awt.Color(204, 204, 204));
         jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenuBar1.setOpaque(true);
@@ -69,24 +148,24 @@ public class ConsultasDoctores extends javax.swing.JFrame {
         jMenu1.setText("EMPLEADOS");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jMenuItem1.setText("INSERTAR");
-        jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
-        jMenu1.add(jMenuItem1);
+        jMenuItem5.setText("INSERTAR");
+        jMenuItem5.addActionListener(this::jMenuItem5ActionPerformed);
+        jMenu1.add(jMenuItem5);
 
-        jMenuItem2.setText("CONSULTA GENERAL");
-        jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
-        jMenu1.add(jMenuItem2);
+        jMenuItem6.setText("CONSULTAS GENERALES");
+        jMenuItem6.addActionListener(this::jMenuItem6ActionPerformed);
+        jMenu1.add(jMenuItem6);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("DOCTORES");
         jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jMenuItem3.setText("INSERTAR");
-        jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
-        jMenu2.add(jMenuItem3);
+        jMenuItem1.setText("INSERTAR");
+        jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
+        jMenu2.add(jMenuItem1);
 
-        jMenuItem4.setText("CONSULTA GENERAL");
+        jMenuItem4.setText("CONSULTAS GENERALES");
         jMenuItem4.addActionListener(this::jMenuItem4ActionPerformed);
         jMenu2.add(jMenuItem4);
 
@@ -98,38 +177,34 @@ public class ConsultasDoctores extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
-        // TODO add your handling code here:
         MenuPrincipal mp = new MenuPrincipal();
         mp.setVisible(true);
-        this.dispose();
+        this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jMenu3MouseClicked
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-        ConsultasEmpleados ce = new ConsultasEmpleados();
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+  FormularioEmpleados fe = new FormularioEmpleados();
+        
+        fe.setVisible(true);
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+  ConsultasEmpleados ce = new ConsultasEmpleados();
         ce.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        FormularioEmpleados fe = new FormularioEmpleados();
-        fe.setVisible(true);
-        this.dispose();
+ FormularioDoctores fd = new FormularioDoctores();
+        fd.setVisible(true);
+        this.dispose();              // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-        FormularioDoctores fd = new FormularioDoctores();
-        fd.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
-        ConsultasDoctores cd = new ConsultasDoctores();
-        cd.setVisible(true);
-        this.dispose();
+ConsultasDoctores cd = new ConsultasDoctores(); 
+cd.setVisible(true);
+this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
@@ -166,6 +241,10 @@ public class ConsultasDoctores extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tablaDoctores;
     // End of variables declaration//GEN-END:variables
 }
