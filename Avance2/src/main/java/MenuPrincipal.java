@@ -126,6 +126,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenuItem2.setText("INSERTAR");
+        jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
         jMenu3.add(jMenuItem2);
         jMenu3.add(jSeparator1);
 
@@ -163,6 +164,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        FormularioDoctores fd = new FormularioDoctores();
+        
+        fd.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
