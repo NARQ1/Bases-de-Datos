@@ -34,28 +34,35 @@ public class ConsultasDoctores extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menú - Consultar Doctor");
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1224, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 531, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
 
+        jMenuBar1.setBackground(new java.awt.Color(204, 204, 204));
+        jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jMenuBar1.setOpaque(true);
+
         jMenu3.setText("INICIO");
         jMenuBar1.add(jMenu3);
 
-        jMenu1.setText("File");
+        jMenu1.setText("EMPLEADOS");
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("DOCTORES");
+        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);

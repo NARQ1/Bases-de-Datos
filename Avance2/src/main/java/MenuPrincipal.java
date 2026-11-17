@@ -106,7 +106,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("EMPLEADOS");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jMenuItem3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenuItem3.setText("INSERTAR");
@@ -122,7 +122,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("DOCTORES");
-        jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenuItem2.setText("INSERTAR");

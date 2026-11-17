@@ -180,7 +180,7 @@ public class ConsultasEmpleados extends javax.swing.JFrame {
         jMenuBar1.add(botonInicio);
 
         jMenu1.setText("EMPLEADOS");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jMenuItem1.setText("INSERTAR ");
         jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -197,7 +197,7 @@ public class ConsultasEmpleados extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("DOCTORES");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jMenuItem3.setText("INSERTAR");
         jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);

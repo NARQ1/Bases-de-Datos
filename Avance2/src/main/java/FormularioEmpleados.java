@@ -256,15 +256,13 @@ public class FormularioEmpleados extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu3.setText("EMPLEADOS");
-        jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenuItem1.setText("INSERTAR");
         jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
         jMenu3.add(jMenuItem1);
         jMenu3.add(jSeparator1);
 
-        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenuItem2.setText("CONSULTAS GENERALES");
         jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
         jMenu3.add(jMenuItem2);
@@ -272,14 +270,12 @@ public class FormularioEmpleados extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("DOCTORES");
-        jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jMenuItem3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenuItem3.setText("INSERTAR");
         jMenu4.add(jMenuItem3);
         jMenu4.add(jSeparator2);
 
-        jMenuItem4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenuItem4.setText("CONSULTAS GENERALES");
         jMenuItem4.addActionListener(this::jMenuItem4ActionPerformed);
         jMenu4.add(jMenuItem4);
