@@ -192,6 +192,7 @@ public class ConsultasEmpleados extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("CONSULTAS GENERALES");
+        jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
@@ -241,6 +242,13 @@ public class ConsultasEmpleados extends javax.swing.JFrame {
         fd.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        ConsultasEmpleados ce = new ConsultasEmpleados();
+        ce.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments

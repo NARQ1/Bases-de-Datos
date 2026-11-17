@@ -159,6 +159,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
+        ConsultasDoctores cd = new ConsultasDoctores();
+        cd.setVisible(true);
+        this.dispose();
+        
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
