@@ -3,6 +3,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -22,6 +23,7 @@ public class ConsultasDoctores extends javax.swing.JFrame {
     public ConsultasDoctores() {
         initComponents();
          this.setExtendedState(MAXIMIZED_BOTH);
+         setIconImage(new ImageIcon(getClass().getResource("/imagenes/nucleoDiagnostico.png")).getImage());
          
          
    javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tablaDoctores.getModel();
@@ -62,7 +64,7 @@ public class ConsultasDoctores extends javax.swing.JFrame {
             
             if (!hayDatos) {
                 Object[] mensajeVacio = new Object[modelo.getColumnCount()];
-                mensajeVacio[0] = "No hay registros en la tabla empleado."; 
+                mensajeVacio[1] = "No hay registros en la tabla empleado."; 
                 modelo.addRow(mensajeVacio);
             }
             
@@ -87,6 +89,7 @@ public class ConsultasDoctores extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaDoctores = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
@@ -102,20 +105,8 @@ public class ConsultasDoctores extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menú - Consultar Doctor");
+        setPreferredSize(new java.awt.Dimension(1220, 720));
         getContentPane().setLayout(new java.awt.GridBagLayout());
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
 
         tablaDoctores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -126,12 +117,61 @@ public class ConsultasDoctores extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre", "Direccion", "Telefono", "Fecha_nac", "Sexo", "Especialidad", "Contraseña"
+                "ID", "Nombre", "Direccion", "Telefono", "Fecha de Nacimiento", "Sexo", "Especialidad", "Contraseña"
             }
-        ));
-        jScrollPane1.setViewportView(tablaDoctores);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
 
-        getContentPane().add(jScrollPane1, new java.awt.GridBagConstraints());
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablaDoctores);
+        if (tablaDoctores.getColumnModel().getColumnCount() > 0) {
+            tablaDoctores.getColumnModel().getColumn(0).setResizable(false);
+            tablaDoctores.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tablaDoctores.getColumnModel().getColumn(1).setResizable(false);
+            tablaDoctores.getColumnModel().getColumn(1).setPreferredWidth(160);
+            tablaDoctores.getColumnModel().getColumn(2).setResizable(false);
+            tablaDoctores.getColumnModel().getColumn(2).setPreferredWidth(130);
+            tablaDoctores.getColumnModel().getColumn(3).setResizable(false);
+            tablaDoctores.getColumnModel().getColumn(3).setPreferredWidth(60);
+            tablaDoctores.getColumnModel().getColumn(4).setResizable(false);
+            tablaDoctores.getColumnModel().getColumn(5).setResizable(false);
+            tablaDoctores.getColumnModel().getColumn(5).setPreferredWidth(5);
+            tablaDoctores.getColumnModel().getColumn(6).setResizable(false);
+            tablaDoctores.getColumnModel().getColumn(6).setPreferredWidth(120);
+            tablaDoctores.getColumnModel().getColumn(7).setResizable(false);
+            tablaDoctores.getColumnModel().getColumn(7).setPreferredWidth(5);
+        }
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("CONSULTAS GENERALES - DOCTOR");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(330, 330, 330)
+                .addComponent(jLabel1)
+                .addContainerGap(397, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
 
         jMenuBar1.setBackground(new java.awt.Color(204, 204, 204));
         jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -202,9 +242,7 @@ public class ConsultasDoctores extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-ConsultasDoctores cd = new ConsultasDoctores(); 
-cd.setVisible(true);
-this.dispose();        // TODO add your handling code here:
+
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
@@ -233,6 +271,7 @@ this.dispose();        // TODO add your handling code here:
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

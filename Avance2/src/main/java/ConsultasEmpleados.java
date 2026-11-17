@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /*
@@ -25,6 +26,7 @@ public class ConsultasEmpleados extends javax.swing.JFrame {
     public ConsultasEmpleados() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/nucleoDiagnostico.png")).getImage());
         
         javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tablaEmpleados.getModel();
         modelo.setRowCount(0);
@@ -67,7 +69,7 @@ public class ConsultasEmpleados extends javax.swing.JFrame {
             
             if (!hayDatos) {
                 Object[] mensajeVacio = new Object[modelo.getColumnCount()];
-                mensajeVacio[0] = "No hay registros en la tabla empleado."; 
+                mensajeVacio[1] = "No hay registros en la tabla empleado."; 
                 modelo.addRow(mensajeVacio);
             }
             
@@ -129,14 +131,23 @@ public class ConsultasEmpleados extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaEmpleados);
         if (tablaEmpleados.getColumnModel().getColumnCount() > 0) {
             tablaEmpleados.getColumnModel().getColumn(0).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(0).setPreferredWidth(5);
             tablaEmpleados.getColumnModel().getColumn(1).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(1).setPreferredWidth(160);
             tablaEmpleados.getColumnModel().getColumn(2).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(2).setPreferredWidth(130);
             tablaEmpleados.getColumnModel().getColumn(3).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(3).setPreferredWidth(50);
             tablaEmpleados.getColumnModel().getColumn(4).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(4).setPreferredWidth(50);
             tablaEmpleados.getColumnModel().getColumn(5).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(5).setPreferredWidth(10);
             tablaEmpleados.getColumnModel().getColumn(6).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(6).setPreferredWidth(50);
             tablaEmpleados.getColumnModel().getColumn(7).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(7).setPreferredWidth(10);
             tablaEmpleados.getColumnModel().getColumn(8).setResizable(false);
+            tablaEmpleados.getColumnModel().getColumn(8).setPreferredWidth(10);
         }
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -150,19 +161,17 @@ public class ConsultasEmpleados extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(380, 380, 380)
-                .addComponent(jLabel1)
-                .addGap(396, 449, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jLabel1))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1210, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jLabel1)
-                .addGap(98, 98, 98)
+                .addGap(122, 122, 122)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -194,6 +203,7 @@ public class ConsultasEmpleados extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("CONSULTAS GENERALES");
+        jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
@@ -245,11 +255,18 @@ public class ConsultasEmpleados extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        ConsultasEmpleados ce = new ConsultasEmpleados();
+        ce.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-ConsultasDoctores cd = new ConsultasDoctores(); 
-cd.setVisible(true);
-this.dispose();
-// TODO add your handling code here:
+        // TODO add your handling code here:
+        ConsultasDoctores cd = new ConsultasDoctores();
+        cd.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
