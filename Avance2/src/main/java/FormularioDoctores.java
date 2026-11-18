@@ -337,7 +337,15 @@ import javax.swing.JOptionPane;
                     pstmt.setString(8, contrasena);
 
                     pstmt.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "¡Se ha ingresado correctamente al doctor " + nombre + "!");
+                    String nombreCorto = nombre.trim();
+                    int posicionEspacio = nombreCorto.indexOf(" ");
+
+                    if (posicionEspacio != -1) {
+                        nombreCorto = nombreCorto.substring(0, posicionEspacio);
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Se ha ingresado correctamente al doctor " + nombreCorto + "!");
+
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error al insertar los datos: " + e.getMessage());
