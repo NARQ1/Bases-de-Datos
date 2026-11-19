@@ -1,5 +1,6 @@
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -164,26 +165,72 @@ public class Formulario extends javax.swing.JFrame {
         String usuario=obtenerUsuario.getText();;
         String contrasena = String.valueOf(obtenerContrasena.getPassword());
         boolean conexionExitosa=false;
-
+        
         //Asignar los valores respectivos al usuario y contraseña de la conexion
-        Conexion.setUser(usuario);
-        Conexion.setPassword(contrasena);
+        conexionExitosa=validarUsuario(usuario, contrasena);
         
         //Restablecer los input a vacios
         obtenerUsuario.setText("");
         obtenerContrasena.setText("");
         
         //Si la conexion es exitosa, mostrar mensaje y mostrar el menu principal, ademas de "apagar" la ventana actual
-        conexionExitosa= Conexion.conectar()!= null;
         if(conexionExitosa){
             javax.swing.JOptionPane.showMessageDialog(null, "Acceso concedido!");
             MenuPrincipal menu = new MenuPrincipal();
             menu.setVisible(true);
             this.dispose();
         }
+        else{
+            JOptionPane.showMessageDialog(null, "Error al ingresar a la base de datos, verifique usuario o contraseña");
+        }
         
     }//GEN-LAST:event_botonAceptarActionPerformed
 
+    public boolean validarUsuario(String identificador, String contrasena) {
+        // Intentamos parsear por si ingresó un número (ID), si no, manejamos el texto
+        int idBusqueda = -1;
+        
+        if(identificador.equals(Conexion.getUser()) && contrasena.equals(Conexion.getPassword())){
+            Conexion.conectar();
+            return true;
+        }
+        try {
+            idBusqueda = Integer.parseInt(identificador);
+        } catch (NumberFormatException e) {
+            // No es un número, se buscará estrictamente por nombre
+        }
+
+        String sqlEmpleado = "SELECT * FROM empleado WHERE (CAST(id AS TEXT) = ? OR nombre = ?) AND contrasena = ?";
+        String sqlDoctor = "SELECT * FROM doctor WHERE (CAST(id AS TEXT) = ? OR nombre = ?) AND contrasena = ?";
+
+        try (Connection con = Conexion.conectar()) {
+
+            try (PreparedStatement ps = con.prepareStatement(sqlEmpleado)) {
+                ps.setString(1, identificador);
+                ps.setString(2, identificador);
+                ps.setString(3, contrasena);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    return true;
+                }
+            }
+
+            try (PreparedStatement ps = con.prepareStatement(sqlDoctor)) {
+                ps.setString(1, identificador);
+                ps.setString(2, identificador);
+                ps.setString(3, contrasena);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    return true;
+                }
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al consultar la base de datos: " + e.getMessage());
+        }
+
+        return false;
+    }
     /**
      * @param args the command line arguments
      */

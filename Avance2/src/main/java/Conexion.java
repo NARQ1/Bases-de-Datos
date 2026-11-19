@@ -4,6 +4,8 @@
  */
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -14,8 +16,8 @@ import javax.swing.JOptionPane;
 public class Conexion {
     //Atributos de nuestra clase conexion
     private static final String URL = "jdbc:postgresql://localhost:5432/nucleo_de_diagnostico";
-    private static String user;
-    private static String password;
+    private static String user="postgres";
+    private static String password="1234";
     
     
     //Metodos getter y setter para acceder a los atributos
@@ -30,6 +32,9 @@ public class Conexion {
     public static String getUser(){
         return user;
     }
+    public static String getPassword(){
+        return password;
+    }
     
     //Funcion para conectar a la base de datos
     public static Connection conectar(){
@@ -43,4 +48,34 @@ public class Conexion {
         }
         return conexion;
     }
+    
+    
+    
+    public static String obtenerNombreUsuario(int id, String tipoUsuario) {
+        String sql = "";
+        
+        if (tipoUsuario.equalsIgnoreCase("doctor")) {
+            sql = "SELECT nombre FROM doctor WHERE id = ?";
+        } else {
+            sql = "SELECT nombre FROM empleado WHERE id = ?";
+        }
+
+        String nombre = "";
+        try (Connection con = Conexion.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                nombre = rs.getString("nombre");
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al consultar el nombre: " + e.getMessage());
+        }
+
+        return nombre;
+    }
+    
 }
