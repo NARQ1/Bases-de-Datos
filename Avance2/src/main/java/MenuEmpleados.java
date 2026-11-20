@@ -2,6 +2,7 @@
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -159,9 +160,16 @@ public class MenuEmpleados extends javax.swing.JFrame {
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
         // TODO add your handling code here:
-        Formulario f = new Formulario();
-        f.setVisible(true);
-        this.dispose();
+        
+        int cerrarSesion=JOptionPane.showConfirmDialog(this, "Estas seguro de que deseas cerrar sesión?","Confirmar cierre de sesión",
+                                       JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        
+        if(cerrarSesion==JOptionPane.YES_OPTION){
+            Formulario f = new Formulario();
+            f.setVisible(true);
+            this.dispose();
+        }
+        
     }//GEN-LAST:event_jMenu2MouseClicked
 
     /**
