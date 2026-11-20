@@ -97,6 +97,11 @@ public class MenuEmpleados extends javax.swing.JFrame {
 
         jMenu2.setText("CERRAR SESIÓN");
         jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -141,17 +146,23 @@ public class MenuEmpleados extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu3MouseClicked
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        FormularioEmpleados fe = new FormularioEmpleados();
-
-        fe.setVisible(true);
+        InsertarPacientes ip = new InsertarPacientes();
+        ip.setVisible(true);
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        ConsultasEmpleados ce = new ConsultasEmpleados();
-        ce.setVisible(true);
+        ConsultasPacientes cp = new ConsultasPacientes();
+        cp.setVisible(true);
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        // TODO add your handling code here:
+        Formulario f = new Formulario();
+        f.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu2MouseClicked
 
     /**
      * @param args the command line arguments

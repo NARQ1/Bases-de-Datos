@@ -43,7 +43,7 @@ public class InsertarPacientes extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout());
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -102,6 +102,11 @@ public class InsertarPacientes extends javax.swing.JFrame {
 
         jMenu2.setText("CERRAR SESIÓN");
         jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -110,23 +115,29 @@ public class InsertarPacientes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
-        MenuPrincipal mp = new MenuPrincipal();
-        mp.setVisible(true);
+        MenuEmpleados me = new MenuEmpleados();
+        me.setVisible(true);
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jMenu3MouseClicked
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        FormularioEmpleados fe = new FormularioEmpleados();
-
-        fe.setVisible(true);
+        InsertarPacientes ip = new InsertarPacientes();
+        ip.setVisible(true);
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        ConsultasEmpleados ce = new ConsultasEmpleados();
+        ConsultasPacientes ce = new ConsultasPacientes();
         ce.setVisible(true);
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        // TODO add your handling code here:   
+        Formulario f = new Formulario();
+        f.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu2MouseClicked
 
     /**
      * @param args the command line arguments
