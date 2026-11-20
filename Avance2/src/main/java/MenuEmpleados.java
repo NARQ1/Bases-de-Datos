@@ -27,6 +27,9 @@ public class MenuEmpleados extends javax.swing.JFrame {
         ImageIcon icono2 = new ImageIcon(getClass().getResource("/imagenes/nucleoDiagnostico.png"));
         Image img2 = icono2.getImage().getScaledInstance(200, 180, Image.SCALE_SMOOTH);
         labelNucleo2.setIcon(new ImageIcon(img2));
+        String nombreUsuario;
+        nombreUsuario=Formulario.obtenerNombreUsuario();
+        bienvenidaUsuario.setText("Bienvenido, " + nombreUsuario);
     }
 
     /**
@@ -110,8 +113,8 @@ public class MenuEmpleados extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addComponent(labelNucleo2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(bienvenidaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(566, Short.MAX_VALUE))
+                .addComponent(bienvenidaUsuario)
+                .addContainerGap(608, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

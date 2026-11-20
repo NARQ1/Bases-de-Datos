@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
  * @author nesto
  */
 public class Formulario extends javax.swing.JFrame {
+    private static String nombreUsuarioLogueado = "";
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Formulario.class.getName());
 
@@ -160,71 +161,78 @@ public class Formulario extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        // TODO add your handling code here:
-        //Obtener los datos de los input
-        String usuario=obtenerUsuario.getText();
+        String usuario = obtenerUsuario.getText();
         String contrasena = String.valueOf(obtenerContrasena.getPassword());
-        boolean conexionExitosa=false;
-        
-        //Asignar los valores respectivos al usuario y contraseña de la conexion
-        conexionExitosa=validarUsuario(usuario, contrasena);
-        
-        //Restablecer los input a vacios
+    
+        // Validar credenciales y obtener el tipo de usuario
+        String tipoUsuario = validarUsuario(usuario, contrasena);
+    
+        // Restablecer los input a vacíos
         obtenerUsuario.setText("");
         obtenerContrasena.setText("");
         
-        //Si la conexion es exitosa, mostrar mensaje y mostrar el menu principal, ademas de "apagar" la ventana actual
-        if(conexionExitosa){
-            javax.swing.JOptionPane.showMessageDialog(null, "Acceso concedido!");
-            /*
-            MenuPrincipal menu = new MenuPrincipal();
-            menu.setVisible(true);*/
-            MenuEmpleados me = new MenuEmpleados();
-            me.setVisible(true);
-            this.dispose();
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Error al ingresar a la base de datos, verifique usuario o contraseña");
-        }
-        
+        if (tipoUsuario != null) {
+                JOptionPane.showMessageDialog(null, "¡Acceso concedido!, ingresaste como " + tipoUsuario);
+
+                switch (tipoUsuario) {
+                    case "ADMIN":
+                        MenuPrincipal ma = new MenuPrincipal();
+                        ma.setVisible(true);
+                        break;
+
+                    case "EMPLEADO":
+                        MenuEmpleados me = new MenuEmpleados();
+                        me.setVisible(true);
+                        break;
+
+                    case "DOCTOR":
+                        MenuDoctores md = new MenuDoctores();
+                        md.setVisible(true);
+                        break;
+                }
+
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al ingresar, verifique usuario o contraseña");
+            }
     }//GEN-LAST:event_botonAceptarActionPerformed
 
-    public boolean validarUsuario(String identificador, String contrasena) {
-        // Intentamos parsear por si ingresó un número (ID), si no, manejamos el texto
-        int idBusqueda = -1;
-        
-        if(identificador.equals(Conexion.getUser()) && contrasena.equals(Conexion.getPassword())){
+    public String validarUsuario(String identificador, String contrasena) {
+            // 1. Verificar si es administrador
+        if (identificador.equals(Conexion.getUser()) && contrasena.equals(Conexion.getPassword())) {
             Conexion.conectar();
-            return true;
-        }
-        try {
-            idBusqueda = Integer.parseInt(identificador);
-        } catch (NumberFormatException e) {
-            // No es un número, se buscará estrictamente por nombre
+            nombreUsuarioLogueado = "Administrador";
+            return "ADMIN";
         }
 
-        String sqlEmpleado = "SELECT * FROM empleado WHERE (CAST(id AS TEXT) = ? OR nombre = ?) AND contrasena = ?";
-        String sqlDoctor = "SELECT * FROM doctor WHERE (CAST(id AS TEXT) = ? OR nombre = ?) AND contrasena = ?";
+        String sqlEmpleado = "SELECT nombre FROM empleado WHERE (CAST(id AS TEXT) = ? OR nombre = ?) AND contrasena = ?";
+        String sqlDoctor = "SELECT nombre FROM doctor WHERE (CAST(id AS TEXT) = ? OR nombre = ?) AND contrasena = ?";
 
         try (Connection con = Conexion.conectar()) {
 
+            // 2. Buscar en tabla empleado
             try (PreparedStatement ps = con.prepareStatement(sqlEmpleado)) {
                 ps.setString(1, identificador);
                 ps.setString(2, identificador);
                 ps.setString(3, contrasena);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    return true;
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        nombreUsuarioLogueado = rs.getString("nombre");
+                        return "EMPLEADO";
+                    }
                 }
             }
 
+            // 3. Buscar en tabla doctor
             try (PreparedStatement ps = con.prepareStatement(sqlDoctor)) {
                 ps.setString(1, identificador);
                 ps.setString(2, identificador);
                 ps.setString(3, contrasena);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    return true;
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        nombreUsuarioLogueado = rs.getString("nombre");
+                        return "DOCTOR";
+                    }
                 }
             }
 
@@ -232,8 +240,20 @@ public class Formulario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al consultar la base de datos: " + e.getMessage());
         }
 
-        return false;
+        nombreUsuarioLogueado = "";
+        return null;
     }
+    
+    public static String obtenerNombreUsuario() {
+        String nombreCorto = nombreUsuarioLogueado.trim();
+        int posicionEspacio = nombreCorto.indexOf(" ");
+
+        if (posicionEspacio != -1) {
+            nombreCorto = nombreCorto.substring(0, posicionEspacio);
+        }
+        return nombreCorto;
+    }
+    
     /**
      * @param args the command line arguments
      */
