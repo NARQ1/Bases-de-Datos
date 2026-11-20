@@ -236,8 +236,8 @@ public class ConsultasEmpleados extends javax.swing.JFrame {
 
     private void botonInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonInicioMouseClicked
         // TODO add your handling code here:
-        MenuPrincipal mp = new MenuPrincipal();
-        mp.setVisible(true);
+        MenuEmpleados me = new MenuEmpleados();
+        me.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonInicioMouseClicked
 
