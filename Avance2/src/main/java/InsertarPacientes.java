@@ -68,6 +68,7 @@ public class InsertarPacientes extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menú - Insertar Paciente");
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel2.setPreferredSize(new java.awt.Dimension(1203, 408));
