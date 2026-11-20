@@ -1,5 +1,6 @@
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ import javax.swing.JOptionPane;
  * @author nesto
  */
 public class Formulario extends javax.swing.JFrame {
+    private static String nombreUsuarioLogueado = "";
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Formulario.class.getName());
 
@@ -159,31 +161,99 @@ public class Formulario extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        // TODO add your handling code here:
-        //Obtener los datos de los input
-        String usuario=obtenerUsuario.getText();;
+        String usuario = obtenerUsuario.getText();
         String contrasena = String.valueOf(obtenerContrasena.getPassword());
-        boolean conexionExitosa=false;
-
-        //Asignar los valores respectivos al usuario y contraseña de la conexion
-        Conexion.setUser(usuario);
-        Conexion.setPassword(contrasena);
-        
-        //Restablecer los input a vacios
+    
+        // Validar credenciales y obtener el tipo de usuario
+        String tipoUsuario = validarUsuario(usuario, contrasena);
+    
+        // Restablecer los input a vacíos
         obtenerUsuario.setText("");
         obtenerContrasena.setText("");
         
-        //Si la conexion es exitosa, mostrar mensaje y mostrar el menu principal, ademas de "apagar" la ventana actual
-        conexionExitosa= Conexion.conectar()!= null;
-        if(conexionExitosa){
-            javax.swing.JOptionPane.showMessageDialog(null, "Acceso concedido!");
-            MenuPrincipal menu = new MenuPrincipal();
-            menu.setVisible(true);
-            this.dispose();
-        }
-        
+        if (tipoUsuario != null) {
+                JOptionPane.showMessageDialog(null, "¡Acceso concedido!, ingresaste como " + tipoUsuario);
+
+                switch (tipoUsuario) {
+                    case "ADMIN":
+                        MenuPrincipal ma = new MenuPrincipal();
+                        ma.setVisible(true);
+                        break;
+
+                    case "EMPLEADO":
+                        MenuEmpleados me = new MenuEmpleados();
+                        me.setVisible(true);
+                        break;
+
+                    case "DOCTOR":
+                        MenuDoctores md = new MenuDoctores();
+                        md.setVisible(true);
+                        break;
+                }
+
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al ingresar, verifique usuario o contraseña");
+            }
     }//GEN-LAST:event_botonAceptarActionPerformed
 
+    public String validarUsuario(String identificador, String contrasena) {
+            // 1. Verificar si es administrador
+        if (identificador.equals(Conexion.getUser()) && contrasena.equals(Conexion.getPassword())) {
+            Conexion.conectar();
+            nombreUsuarioLogueado = "Administrador";
+            return "ADMIN";
+        }
+
+        String sqlEmpleado = "SELECT nombre FROM empleado WHERE (CAST(id AS TEXT) = ? OR nombre = ?) AND contrasena = ?";
+        String sqlDoctor = "SELECT nombre FROM doctor WHERE (CAST(id AS TEXT) = ? OR nombre = ?) AND contrasena = ?";
+
+        try (Connection con = Conexion.conectar()) {
+
+            // 2. Buscar en tabla empleado
+            try (PreparedStatement ps = con.prepareStatement(sqlEmpleado)) {
+                ps.setString(1, identificador);
+                ps.setString(2, identificador);
+                ps.setString(3, contrasena);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        nombreUsuarioLogueado = rs.getString("nombre");
+                        return "EMPLEADO";
+                    }
+                }
+            }
+
+            // 3. Buscar en tabla doctor
+            try (PreparedStatement ps = con.prepareStatement(sqlDoctor)) {
+                ps.setString(1, identificador);
+                ps.setString(2, identificador);
+                ps.setString(3, contrasena);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        nombreUsuarioLogueado = rs.getString("nombre");
+                        return "DOCTOR";
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al consultar la base de datos: " + e.getMessage());
+        }
+
+        nombreUsuarioLogueado = "";
+        return null;
+    }
+    
+    public static String obtenerNombreUsuario() {
+        String nombreCorto = nombreUsuarioLogueado.trim();
+        int posicionEspacio = nombreCorto.indexOf(" ");
+
+        if (posicionEspacio != -1) {
+            nombreCorto = nombreCorto.substring(0, posicionEspacio);
+        }
+        return nombreCorto;
+    }
+    
     /**
      * @param args the command line arguments
      */
