@@ -162,7 +162,7 @@ public class Formulario extends javax.swing.JFrame {
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         // TODO add your handling code here:
         //Obtener los datos de los input
-        String usuario=obtenerUsuario.getText();;
+        String usuario=obtenerUsuario.getText();
         String contrasena = String.valueOf(obtenerContrasena.getPassword());
         boolean conexionExitosa=false;
         
@@ -176,8 +176,11 @@ public class Formulario extends javax.swing.JFrame {
         //Si la conexion es exitosa, mostrar mensaje y mostrar el menu principal, ademas de "apagar" la ventana actual
         if(conexionExitosa){
             javax.swing.JOptionPane.showMessageDialog(null, "Acceso concedido!");
+            /*
             MenuPrincipal menu = new MenuPrincipal();
-            menu.setVisible(true);
+            menu.setVisible(true);*/
+            MenuEmpleados me = new MenuEmpleados();
+            me.setVisible(true);
             this.dispose();
         }
         else{
