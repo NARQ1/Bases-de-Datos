@@ -258,10 +258,6 @@ public class ModificarCita extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-        ModificarCita mc = new ModificarCita();
-        mc.setVisible(true);
-        this.dispose();
-
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
