@@ -220,7 +220,7 @@ public class InsertarPacientes extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 40, -1, -1));
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 40, -1, -1));
 
         getContentPane().add(jPanel2);
 
