@@ -134,6 +134,7 @@ public class AgendaDoctor extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaAgenda = new javax.swing.JTable();
         comboDoctor = new javax.swing.JComboBox<>();
+        modificarCita = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
@@ -185,6 +186,9 @@ public class AgendaDoctor extends javax.swing.JFrame {
         comboDoctor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboDoctor.addActionListener(this::comboDoctorActionPerformed);
 
+        modificarCita.setText("MODIFICAR CITA");
+        modificarCita.addActionListener(this::modificarCitaActionPerformed);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -195,7 +199,9 @@ public class AgendaDoctor extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(comboDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(modificarCita))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -205,7 +211,8 @@ public class AgendaDoctor extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(comboDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(modificarCita))
                 .addGap(12, 12, 12)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -348,6 +355,91 @@ public class AgendaDoctor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenu2MouseClicked
 
+    private void modificarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarCitaActionPerformed
+        // TODO add your handling code here:
+        int fila = tablaAgenda.getSelectedRow();
+        int columna = tablaAgenda.getSelectedColumn();
+
+        if (fila == -1 || columna <= 0) {
+            JOptionPane.showMessageDialog(this, "Primero haz clic sobre una cita ocupada en la tabla.");
+            return;
+        }
+
+        String valorCelda = tablaAgenda.getValueAt(fila, columna).toString();
+        if (valorCelda.equals("DISPONIBLE") || valorCelda.equals("COMIDA")) {
+            JOptionPane.showMessageDialog(this, "Esa casilla no tiene ninguna cita registrada.");
+            return;
+        }
+
+        LocalDate lunesSemana = LocalDate.of(2026, 11, 23);
+        LocalDate fechaActual = lunesSemana.plusDays(columna - 1);
+        LocalTime horaActual = LocalTime.of(fila + 9, 0);
+        int idDoctor = Integer.parseInt(comboDoctor.getSelectedItem().toString().split(" - ")[0]);
+
+        String nuevaFechaStr = JOptionPane.showInputDialog(
+            this,
+            "Cita de: " + valorCelda + "\nIngresa la NUEVA fecha (dd/MM/yyyy):",
+            fechaActual.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+        );
+        if (nuevaFechaStr == null || nuevaFechaStr.trim().isEmpty()) return;
+
+        String nuevaHoraStr = JOptionPane.showInputDialog(
+            this,
+            "Ingresa la NUEVA hora (HH:mm):",
+            horaActual.format(DateTimeFormatter.ofPattern("HH:mm"))
+        );
+        if (nuevaHoraStr == null || nuevaHoraStr.trim().isEmpty()) return;
+
+        try {
+            LocalDate nuevaFecha = LocalDate.parse(nuevaFechaStr.trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            LocalTime nuevaHora = LocalTime.parse(nuevaHoraStr.trim(), DateTimeFormatter.ofPattern("HH:mm"));
+
+            int horaNum = nuevaHora.getHour();
+            if (horaNum == 14 || horaNum == 15) {
+                JOptionPane.showMessageDialog(this, "No se pueden agendar citas entre 14:00 y 16:00 (COMIDA).");
+                return;
+            }
+            if (horaNum < 9 || horaNum > 19) {
+                JOptionPane.showMessageDialog(this, "El horario de atención es de 09:00 a 19:00.");
+                return;
+            }
+
+            String sqlCheck = "SELECT COUNT(*) FROM cita WHERE id_doctor = ? AND fecha = ? AND hora = ?";
+            try (Connection conn = Conexion.conectar();
+                 PreparedStatement pstCheck = conn.prepareStatement(sqlCheck)) {
+                pstCheck.setInt(1, idDoctor);
+                pstCheck.setDate(2, java.sql.Date.valueOf(nuevaFecha));
+                pstCheck.setTime(3, java.sql.Time.valueOf(nuevaHora));
+                try (ResultSet rs = pstCheck.executeQuery()) {
+                    if (rs.next() && rs.getInt(1) > 0) {
+                        JOptionPane.showMessageDialog(this, "Ese horario ya está ocupado por otro paciente.");
+                        return;
+                    }
+                }
+            }
+
+            String sqlUpdate = "UPDATE cita SET fecha = ?, hora = ? WHERE id_doctor = ? AND fecha = ? AND hora = ?";
+            try (Connection conn = Conexion.conectar();
+                 PreparedStatement pstUpd = conn.prepareStatement(sqlUpdate)) {
+                pstUpd.setDate(1, java.sql.Date.valueOf(nuevaFecha));
+                pstUpd.setTime(2, java.sql.Time.valueOf(nuevaHora));
+                pstUpd.setInt(3, idDoctor);
+                pstUpd.setDate(4, java.sql.Date.valueOf(fechaActual));
+                pstUpd.setTime(5, java.sql.Time.valueOf(horaActual));
+
+                int filasAfectadas = pstUpd.executeUpdate();
+                if (filasAfectadas > 0) {
+                    JOptionPane.showMessageDialog(this, "¡Cita actualizada correctamente!");
+                    cargarAgendaSemana(lunesSemana);
+                }
+            }
+        } catch (java.time.format.DateTimeParseException ex) {
+            JOptionPane.showMessageDialog(this, "Formato inválido.\nFecha: dd/MM/yyyy (ej. 24/11/2026)\nHora: HH:mm (ej. 10:00)");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar cita: " + e.getMessage());
+        }
+    }//GEN-LAST:event_modificarCitaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -390,6 +482,7 @@ public class AgendaDoctor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton modificarCita;
     private javax.swing.JTable tablaAgenda;
     // End of variables declaration//GEN-END:variables
 }
