@@ -128,6 +128,7 @@ public class ConsultasDoctores extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaDoctores.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tablaDoctores);
         if (tablaDoctores.getColumnModel().getColumnCount() > 0) {
             tablaDoctores.getColumnModel().getColumn(0).setResizable(false);

@@ -173,9 +173,8 @@ public class AgendaDoctor extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tablaAgenda.setColumnSelectionAllowed(true);
+        tablaAgenda.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tablaAgenda);
-        tablaAgenda.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (tablaAgenda.getColumnModel().getColumnCount() > 0) {
             tablaAgenda.getColumnModel().getColumn(0).setResizable(false);
             tablaAgenda.getColumnModel().getColumn(1).setResizable(false);
@@ -324,7 +323,7 @@ public class AgendaDoctor extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
