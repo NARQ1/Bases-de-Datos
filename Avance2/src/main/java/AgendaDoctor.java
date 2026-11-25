@@ -129,11 +129,12 @@ public class AgendaDoctor extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        comboDoctor = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaAgenda = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        comboDoctor = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
@@ -143,15 +144,15 @@ public class AgendaDoctor extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
+        setTitle("Menú - Agenda Doctores");
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Seleccionar Doctor:");
-
-        comboDoctor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboDoctor.addActionListener(this::comboDoctorActionPerformed);
 
         tablaAgenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -163,41 +164,81 @@ public class AgendaDoctor extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
-        jScrollPane2.setViewportView(tablaAgenda);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        jButton1.setText("Reagendar");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaAgenda.setColumnSelectionAllowed(true);
+        jScrollPane2.setViewportView(tablaAgenda);
+        tablaAgenda.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (tablaAgenda.getColumnModel().getColumnCount() > 0) {
+            tablaAgenda.getColumnModel().getColumn(0).setResizable(false);
+            tablaAgenda.getColumnModel().getColumn(1).setResizable(false);
+            tablaAgenda.getColumnModel().getColumn(2).setResizable(false);
+            tablaAgenda.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        comboDoctor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        comboDoctor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboDoctor.addActionListener(this::comboDoctorActionPerformed);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setText("AGENDA DE  DOCTORES");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(28, 28, 28)
+                                .addComponent(comboDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(279, 279, 279)
+                        .addComponent(jLabel1)))
+                .addContainerGap(95, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(comboDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jButton1))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(71, 71, 71)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(comboDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(12, 12, 12)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        getContentPane().add(jPanel1);
+        getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
 
         jMenuBar1.setBackground(new java.awt.Color(204, 204, 204));
         jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -224,7 +265,7 @@ public class AgendaDoctor extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu5.setText("DOCTORES");
-        jMenu5.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        jMenu5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jMenuItem2.setText("AGENDA");
         jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
@@ -233,11 +274,15 @@ public class AgendaDoctor extends javax.swing.JFrame {
         jMenuBar1.add(jMenu5);
 
         jMenu4.setText("CITAS");
-        jMenu4.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jMenuItem1.setText("REGISTAR");
         jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
         jMenu4.add(jMenuItem1);
+
+        jMenuItem3.setText("MODIFICAR");
+        jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
+        jMenu4.add(jMenuItem3);
 
         jMenuBar1.add(jMenu4);
 
@@ -254,6 +299,11 @@ public class AgendaDoctor extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void comboDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboDoctorActionPerformed
+        // TODO add your handling code here:
+        cargarAgendaSemana(LocalDate.of(2026, 11, 23));
+    }//GEN-LAST:event_comboDoctorActionPerformed
 
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
         MenuEmpleados me = new MenuEmpleados();
@@ -281,8 +331,16 @@ public class AgendaDoctor extends javax.swing.JFrame {
         // TODO add your handling code here:
         RegistroCita rc = new RegistroCita();
         rc.setVisible(true);
-        this.dispose(); 
+        this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        ModificarCita mc = new ModificarCita();
+        mc.setVisible(true);
+        this.dispose();
+
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
         // TODO add your handling code here:
@@ -296,96 +354,6 @@ public class AgendaDoctor extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_jMenu2MouseClicked
-
-    private void comboDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboDoctorActionPerformed
-        // TODO add your handling code here:
-        cargarAgendaSemana(LocalDate.of(2026, 11, 23));
-    }//GEN-LAST:event_comboDoctorActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        int fila = tablaAgenda.getSelectedRow();
-        int columna = tablaAgenda.getSelectedColumn();
-
-        if (fila == -1 || columna <= 0) {
-            JOptionPane.showMessageDialog(this, "Primero haz clic sobre una cita ocupada en la tabla.");
-            return;
-        }
-
-        String valorCelda = tablaAgenda.getValueAt(fila, columna).toString();
-        if (valorCelda.equals("DISPONIBLE") || valorCelda.equals("COMIDA")) {
-            JOptionPane.showMessageDialog(this, "Esa casilla no tiene ninguna cita registrada.");
-            return;
-        }
-
-        LocalDate lunesSemana = LocalDate.of(2026, 11, 23);
-        LocalDate fechaActual = lunesSemana.plusDays(columna - 1);
-        LocalTime horaActual = LocalTime.of(fila + 9, 0);
-        int idDoctor = Integer.parseInt(comboDoctor.getSelectedItem().toString().split(" - ")[0]);
-
-        String nuevaFechaStr = JOptionPane.showInputDialog(
-            this,
-            "Cita de: " + valorCelda + "\nIngresa la NUEVA fecha (dd/MM/yyyy):",
-            fechaActual.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-        );
-        if (nuevaFechaStr == null || nuevaFechaStr.trim().isEmpty()) return;
-
-        String nuevaHoraStr = JOptionPane.showInputDialog(
-            this,
-            "Ingresa la NUEVA hora (HH:mm):",
-            horaActual.format(DateTimeFormatter.ofPattern("HH:mm"))
-        );
-        if (nuevaHoraStr == null || nuevaHoraStr.trim().isEmpty()) return;
-
-        try {
-            LocalDate nuevaFecha = LocalDate.parse(nuevaFechaStr.trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            LocalTime nuevaHora = LocalTime.parse(nuevaHoraStr.trim(), DateTimeFormatter.ofPattern("HH:mm"));
-
-            int horaNum = nuevaHora.getHour();
-            if (horaNum == 14 || horaNum == 15) {
-                JOptionPane.showMessageDialog(this, "No se pueden agendar citas entre 14:00 y 16:00 (COMIDA).");
-                return;
-            }
-            if (horaNum < 9 || horaNum > 19) {
-                JOptionPane.showMessageDialog(this, "El horario de atención es de 09:00 a 19:00.");
-                return;
-            }
-
-            String sqlCheck = "SELECT COUNT(*) FROM cita WHERE id_doctor = ? AND fecha = ? AND hora = ?";
-            try (Connection conn = Conexion.conectar();
-                 PreparedStatement pstCheck = conn.prepareStatement(sqlCheck)) {
-                pstCheck.setInt(1, idDoctor);
-                pstCheck.setDate(2, java.sql.Date.valueOf(nuevaFecha));
-                pstCheck.setTime(3, java.sql.Time.valueOf(nuevaHora));
-                try (ResultSet rs = pstCheck.executeQuery()) {
-                    if (rs.next() && rs.getInt(1) > 0) {
-                        JOptionPane.showMessageDialog(this, "Ese horario ya está ocupado por otro paciente.");
-                        return;
-                    }
-                }
-            }
-
-            String sqlUpdate = "UPDATE cita SET fecha = ?, hora = ? WHERE id_doctor = ? AND fecha = ? AND hora = ?";
-            try (Connection conn = Conexion.conectar();
-                 PreparedStatement pstUpd = conn.prepareStatement(sqlUpdate)) {
-                pstUpd.setDate(1, java.sql.Date.valueOf(nuevaFecha));
-                pstUpd.setTime(2, java.sql.Time.valueOf(nuevaHora));
-                pstUpd.setInt(3, idDoctor);
-                pstUpd.setDate(4, java.sql.Date.valueOf(fechaActual));
-                pstUpd.setTime(5, java.sql.Time.valueOf(horaActual));
-
-                int filasAfectadas = pstUpd.executeUpdate();
-                if (filasAfectadas > 0) {
-                    JOptionPane.showMessageDialog(this, "¡Cita actualizada correctamente!");
-                    cargarAgendaSemana(lunesSemana);
-                }
-            }
-        } catch (java.time.format.DateTimeParseException ex) {
-            JOptionPane.showMessageDialog(this, "Formato inválido.\nFecha: dd/MM/yyyy (ej. 24/11/2026)\nHora: HH:mm (ej. 10:00)");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al actualizar cita: " + e.getMessage());
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -414,7 +382,7 @@ public class AgendaDoctor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboDoctor;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -424,9 +392,11 @@ public class AgendaDoctor extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tablaAgenda;
     // End of variables declaration//GEN-END:variables

@@ -60,15 +60,15 @@ public class FormularioEmpleados extends javax.swing.JFrame {
         obtenerFecha_nac = new javax.swing.JFormattedTextField();
         obtenerContrasena = new javax.swing.JPasswordField();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menú - Insertar Empleado");
@@ -245,54 +245,45 @@ public class FormularioEmpleados extends javax.swing.JFrame {
 
         jMenuBar1.setBackground(new java.awt.Color(204, 204, 204));
         jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jMenuBar1.setToolTipText("");
+        jMenuBar1.setOpaque(true);
 
-        jMenu3.setText("INICIO");
-        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenu1.setText("INICIO");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu3MouseClicked(evt);
+                jMenu1MouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMenu3);
-
-        jMenu1.setText("PACIENTES");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
-        jMenuItem5.setText("INSERTAR");
-        jMenuItem5.addActionListener(this::jMenuItem5ActionPerformed);
-        jMenu1.add(jMenuItem5);
-
-        jMenuItem6.setText("CONSULTAS GENERALES");
-        jMenuItem6.addActionListener(this::jMenuItem6ActionPerformed);
-        jMenu1.add(jMenuItem6);
-
+        jMenu1.addActionListener(this::jMenu1ActionPerformed);
         jMenuBar1.add(jMenu1);
 
-        jMenu5.setText("DOCTORES");
-        jMenu5.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        jMenu3.setText("EMPLEADOS");
+        jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jMenuItem2.setText("AGENDA");
-        jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
-        jMenu5.add(jMenuItem2);
-
-        jMenuBar1.add(jMenu5);
-
-        jMenu4.setText("CITAS");
-        jMenu4.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-
-        jMenuItem1.setText("REGISTAR");
+        jMenuItem1.setText("INSERTAR");
         jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
-        jMenu4.add(jMenuItem1);
+        jMenu3.add(jMenuItem1);
+        jMenu3.add(jSeparator1);
+
+        jMenuItem2.setText("CONSULTAS GENERALES");
+        jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
+        jMenu3.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("DOCTORES");
+        jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jMenuItem3.setText("INSERTAR");
+        jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
+        jMenu4.add(jMenuItem3);
+        jMenu4.add(jSeparator2);
+
+        jMenuItem4.setText("CONSULTAS GENERALES");
+        jMenuItem4.addActionListener(this::jMenuItem4ActionPerformed);
+        jMenu4.add(jMenuItem4);
 
         jMenuBar1.add(jMenu4);
-
-        jMenu2.setText("CERRAR SESIÓN");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu2MouseClicked(evt);
-            }
-        });
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -387,54 +378,45 @@ public class FormularioEmpleados extends javax.swing.JFrame {
         obtenerContrasena.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        ConsultasEmpleados ce = new ConsultasEmpleados();
+        ce.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        ConsultasDoctores cd = new ConsultasDoctores();
+        cd.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        // TODO add your handling code here:
+        MenuPrincipal mp = new MenuPrincipal();
+        mp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenu1MouseClicked
+
     private void obtenerIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_obtenerIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_obtenerIdActionPerformed
 
-    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
-        MenuEmpleados me = new MenuEmpleados();
-        me.setVisible(true);
-        this.dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu3MouseClicked
-
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        InsertarPacientes ip = new InsertarPacientes();
-        ip.setVisible(true);
-        this.dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
-
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        ConsultasPacientes cp = new ConsultasPacientes();
-        cp.setVisible(true);
-        this.dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
-
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-        AgendaDoctor ag = new AgendaDoctor();
-        ag.setVisible(true);
+        FormularioDoctores fd = new FormularioDoctores();
+        fd.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        RegistroCita rc = new RegistroCita();
-        rc.setVisible(true);
-        this.dispose(); 
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-        // TODO add your handling code here:
-
-        int cerrarSesion=JOptionPane.showConfirmDialog(this, "Estas seguro de que deseas cerrar sesión?","Confirmar cierre de sesión",
-            JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-
-        if(cerrarSesion==JOptionPane.YES_OPTION){
-            Formulario f = new Formulario();
-            f.setVisible(true);
-            this.dispose();
-        }
-    }//GEN-LAST:event_jMenu2MouseClicked
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -476,16 +458,16 @@ public class FormularioEmpleados extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPasswordField obtenerContrasena;
     private javax.swing.JTextField obtenerDireccion;
     private javax.swing.JFormattedTextField obtenerFecha_nac;

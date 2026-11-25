@@ -175,6 +175,7 @@ public class ConsultasDoctores extends javax.swing.JFrame {
 
         jMenuBar1.setBackground(new java.awt.Color(204, 204, 204));
         jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jMenuBar1.setOpaque(true);
 
         jMenu3.setText("INICIO");
         jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
