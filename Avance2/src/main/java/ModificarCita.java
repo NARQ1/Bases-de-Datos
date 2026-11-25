@@ -1,7 +1,14 @@
 
 import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -23,8 +30,23 @@ public class ModificarCita extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/nucleoDiagnostico.png")).getImage());
+        cargarDoctores();
+        cargarAgendaSemana(LocalDate.of(2026, 11, 23));
     }
 
+    private void cargarDoctores() {
+        comboDoctor.removeAllItems();
+        String sql = "SELECT id, nombre FROM doctor ORDER BY id ASC";
+        try (Connection conn = Conexion.conectar();
+             PreparedStatement pst = conn.prepareStatement(sql);
+             ResultSet rs = pst.executeQuery()) {
+            while (rs.next()) {
+                comboDoctor.addItem(rs.getInt("id") + " - " + rs.getString("nombre"));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar doctores: " + e.getMessage());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,9 +55,15 @@ public class ModificarCita extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaAgenda = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        comboDoctor = new javax.swing.JComboBox<>();
+        modificarCita = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
@@ -49,26 +77,92 @@ public class ModificarCita extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menú - Modificar Cita");
+        setPreferredSize(new java.awt.Dimension(1273, 556));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(1180, 490));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("MODIFICAR CITA");
+
+        tablaAgenda.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaAgenda.setColumnSelectionAllowed(true);
+        jScrollPane2.setViewportView(tablaAgenda);
+        tablaAgenda.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setText("Seleccionar Doctor:");
+
+        comboDoctor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        comboDoctor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboDoctor.addActionListener(this::comboDoctorActionPerformed);
+
+        modificarCita.setText("MODIFICAR ");
+        modificarCita.addActionListener(this::modificarCitaActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(631, 631, 631)
-                .addComponent(jLabel1)
-                .addContainerGap(1058, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(377, 377, 377)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(comboDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(modificarCita))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(639, 639, 639)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(512, Short.MAX_VALUE))
+                .addGap(74, 74, 74)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(comboDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(modificarCita))
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 566;
+        gridBagConstraints.ipady = 70;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
+        getContentPane().add(jPanel1, gridBagConstraints);
 
         jMenuBar1.setBackground(new java.awt.Color(204, 204, 204));
         jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -106,7 +200,7 @@ public class ModificarCita extends javax.swing.JFrame {
         jMenu4.setText("CITAS");
         jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jMenuItem1.setText("REGISTAR");
+        jMenuItem1.setText("REGISTRAR");
         jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
         jMenu4.add(jMenuItem1);
 
@@ -126,23 +220,6 @@ public class ModificarCita extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -200,6 +277,167 @@ public class ModificarCita extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenu2MouseClicked
 
+    private void comboDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboDoctorActionPerformed
+        // TODO add your handling code here:
+        cargarAgendaSemana(LocalDate.of(2026, 11, 23));
+    }//GEN-LAST:event_comboDoctorActionPerformed
+
+    private void modificarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarCitaActionPerformed
+        // TODO add your handling code here:
+        int fila = tablaAgenda.getSelectedRow();
+        int columna = tablaAgenda.getSelectedColumn();
+
+        if (fila == -1 || columna <= 0) {
+            JOptionPane.showMessageDialog(this, "Primero haz clic sobre una cita ocupada en la tabla.");
+            return;
+        }
+
+        String valorCelda = tablaAgenda.getValueAt(fila, columna).toString();
+        if (valorCelda.equals("DISPONIBLE") || valorCelda.equals("COMIDA")) {
+            JOptionPane.showMessageDialog(this, "Esa casilla no tiene ninguna cita registrada.");
+            return;
+        }
+
+        LocalDate lunesSemana = LocalDate.of(2026, 11, 23);
+        LocalDate fechaActual = lunesSemana.plusDays(columna - 1);
+        LocalTime horaActual = LocalTime.of(fila + 9, 0);
+        int idDoctor = Integer.parseInt(comboDoctor.getSelectedItem().toString().split(" - ")[0]);
+
+        String nuevaFechaStr = JOptionPane.showInputDialog(
+            this,
+            "Cita de: " + valorCelda + "\nIngresa la NUEVA fecha (dd/MM/yyyy):",
+            fechaActual.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+        );
+        if (nuevaFechaStr == null || nuevaFechaStr.trim().isEmpty()) return;
+
+        String nuevaHoraStr = JOptionPane.showInputDialog(
+            this,
+            "Ingresa la NUEVA hora (HH:mm):",
+            horaActual.format(DateTimeFormatter.ofPattern("HH:mm"))
+        );
+        if (nuevaHoraStr == null || nuevaHoraStr.trim().isEmpty()) return;
+
+        try {
+            LocalDate nuevaFecha = LocalDate.parse(nuevaFechaStr.trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            LocalTime nuevaHora = LocalTime.parse(nuevaHoraStr.trim(), DateTimeFormatter.ofPattern("HH:mm"));
+
+            int horaNum = nuevaHora.getHour();
+            if (horaNum == 14 || horaNum == 15) {
+                JOptionPane.showMessageDialog(this, "No se pueden agendar citas entre 14:00 y 16:00 (COMIDA).");
+                return;
+            }
+            if (horaNum < 9 || horaNum > 19) {
+                JOptionPane.showMessageDialog(this, "El horario de atención es de 09:00 a 19:00.");
+                return;
+            }
+
+            String sqlCheck = "SELECT COUNT(*) FROM cita WHERE id_doctor = ? AND fecha = ? AND hora = ?";
+            try (Connection conn = Conexion.conectar();
+                PreparedStatement pstCheck = conn.prepareStatement(sqlCheck)) {
+                pstCheck.setInt(1, idDoctor);
+                pstCheck.setDate(2, java.sql.Date.valueOf(nuevaFecha));
+                pstCheck.setTime(3, java.sql.Time.valueOf(nuevaHora));
+                try (ResultSet rs = pstCheck.executeQuery()) {
+                    if (rs.next() && rs.getInt(1) > 0) {
+                        JOptionPane.showMessageDialog(this, "Ese horario ya está ocupado por otro paciente.");
+                        return;
+                    }
+                }
+            }
+
+            String sqlUpdate = "UPDATE cita SET fecha = ?, hora = ? WHERE id_doctor = ? AND fecha = ? AND hora = ?";
+            try (Connection conn = Conexion.conectar();
+                PreparedStatement pstUpd = conn.prepareStatement(sqlUpdate)) {
+                pstUpd.setDate(1, java.sql.Date.valueOf(nuevaFecha));
+                pstUpd.setTime(2, java.sql.Time.valueOf(nuevaHora));
+                pstUpd.setInt(3, idDoctor);
+                pstUpd.setDate(4, java.sql.Date.valueOf(fechaActual));
+                pstUpd.setTime(5, java.sql.Time.valueOf(horaActual));
+
+                int filasAfectadas = pstUpd.executeUpdate();
+                if (filasAfectadas > 0) {
+                    JOptionPane.showMessageDialog(this, "¡Cita actualizada correctamente!");
+                    cargarAgendaSemana(lunesSemana);
+                }
+            }
+        } catch (java.time.format.DateTimeParseException ex) {
+            JOptionPane.showMessageDialog(this, "Formato inválido.\nFecha: dd/MM/yyyy (ej. 24/11/2026)\nHora: HH:mm (ej. 10:00)");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar cita: " + e.getMessage());
+        }
+    }//GEN-LAST:event_modificarCitaActionPerformed
+
+     public void cargarAgendaSemana(LocalDate lunesSemana) {
+        if (comboDoctor.getSelectedItem() == null) return;
+
+        int idDoctor = Integer.parseInt(comboDoctor.getSelectedItem().toString().split(" - ")[0]);
+        DateTimeFormatter fmtEncabezado = DateTimeFormatter.ofPattern("dd/MMM");
+
+        String[] columnas = {
+            "HORARIO",
+            "LUNES " + lunesSemana.format(fmtEncabezado).toUpperCase(),
+            "MARTES " + lunesSemana.plusDays(1).format(fmtEncabezado).toUpperCase(),
+            "MIÉRCOLES " + lunesSemana.plusDays(2).format(fmtEncabezado).toUpperCase(),
+            "JUEVES " + lunesSemana.plusDays(3).format(fmtEncabezado).toUpperCase(),
+            "VIERNES " + lunesSemana.plusDays(4).format(fmtEncabezado).toUpperCase()
+        };
+
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        String[] bloques = {
+            "9:00 A 10:00", "10:00 A 11:00", "11:00 A 12:00", "12:00 A 1:00",
+            "1:00 A 2:00", "2:00 A 3:00", "3:00 A 4:00", "4:00 A 5:00",
+            "5:00 A 6:00", "6:00 A 7:00", "7:00 A 8:00"
+        };
+
+        for (int i = 0; i < bloques.length; i++) {
+            if (i == 5 || i == 6) {
+                modelo.addRow(new Object[]{bloques[i], "COMIDA", "COMIDA", "COMIDA", "COMIDA", "COMIDA"});
+            } else {
+                modelo.addRow(new Object[]{bloques[i], "DISPONIBLE", "DISPONIBLE", "DISPONIBLE", "DISPONIBLE", "DISPONIBLE"});
+            }
+        }
+
+        String sql = "SELECT c.fecha, c.hora, p.nombre AS paciente " +
+                     "FROM cita c " +
+                     "JOIN paciente p ON c.id_paciente = p.id " +
+                     "WHERE c.id_doctor = ? AND c.fecha BETWEEN ? AND ?";
+
+        try (Connection conn = Conexion.conectar();
+             PreparedStatement pst = conn.prepareStatement(sql)) {
+
+            pst.setInt(1, idDoctor);
+            pst.setDate(2, java.sql.Date.valueOf(lunesSemana));
+            pst.setDate(3, java.sql.Date.valueOf(lunesSemana.plusDays(4)));
+
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    LocalDate fechaCita = rs.getDate("fecha").toLocalDate();
+                    LocalTime horaCita = rs.getTime("hora").toLocalTime();
+                    String nombrePaciente = rs.getString("paciente");
+
+                    // Calcular columna (1 = Lunes ... 5 = Viernes)
+                    int colDia = (int) java.time.temporal.ChronoUnit.DAYS.between(lunesSemana, fechaCita) + 1;
+                    // Calcular fila según la hora (9 -> fila 0, 10 -> fila 1 ... 19 -> fila 10)
+                    int filaHora = horaCita.getHour() - 9;
+
+                    if (colDia >= 1 && colDia <= 5 && filaHora >= 0 && filaHora < bloques.length) {
+                        modelo.setValueAt(nombrePaciente, filaHora, colDia);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al consultar agenda: " + e.getMessage());
+        }
+
+        tablaAgenda.setModel(modelo);
+        tablaAgenda.setRowHeight(28); // Para que las filas se vean amplias y legibles
+    }
     /**
      * @param args the command line arguments
      */
@@ -226,7 +464,9 @@ public class ModificarCita extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> comboDoctor;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -239,5 +479,8 @@ public class ModificarCita extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton modificarCita;
+    private javax.swing.JTable tablaAgenda;
     // End of variables declaration//GEN-END:variables
 }

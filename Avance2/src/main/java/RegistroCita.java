@@ -93,6 +93,7 @@ public class RegistroCita extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menú - Registrar Cita");
         setPreferredSize(new java.awt.Dimension(1573, 576));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
