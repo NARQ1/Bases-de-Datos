@@ -1,12 +1,9 @@
-
-import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.sql.Connection;
-import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -15,60 +12,56 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author nesto
+ * @author zaratecold
  */
 public class ConsultasMedicamentos extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ConsultasMedicamentos.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(InsertarMedicamento.class.getName());
 
     /**
-     * Creates new form MedicamentoConsultas
+     * Creates new form InsertarMedicamento
      */
     public ConsultasMedicamentos() {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);      
-        setIconImage(new ImageIcon(getClass().getResource("/imagenes/nucleoDiagnostico.png")).getImage());
-        
-        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tablaMedicamentos.getModel();
-        modelo.setRowCount(0);
-        
-        String sql = "SELECT * FROM medicamento";
-        
-        // Conectar con el cliente para conectar postgres
+        this.setExtendedState(MAXIMIZED_BOTH);
+        cargarMedicamentos();
+    }
+
+    public void cargarMedicamentos() {
+        DefaultTableModel modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Evita que el usuario edite las celdas con doble clic
+            }
+        };
+
+        // Encabezados de las 5 columnas de tu tabla medicamento
+        modelo.addColumn("ID");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Vía de Administración");
+        modelo.addColumn("Presentación");
+        modelo.addColumn("Fecha de Caducidad");
+
+        String sql = "SELECT id, nombre, via_administracion, presentacion, fecha_cad FROM medicamento ORDER BY id ASC";
+
         try (Connection conn = Conexion.conectar();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-            
-            boolean hayDatos = false;
-            
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
             while (rs.next()) {
-                hayDatos = true;
-                // Obtener los datos de la base de datos
-                int id = rs.getInt("id");
-                String nombre = rs.getString("nombre");
-                String via_admin = rs.getString("via_administracion");
-                String presentacion = rs.getString("presentacion");
-                String fecha_cad = rs.getString("fecha_cad");
-                   
-                //Insertar las variables en el JTable
-               Object[] fila = {
-                    id,
-                    nombre,
-                    via_admin,
-                    presentacion,
-                    fecha_cad,    
-                };
+                Object[] fila = new Object[5];
+                fila[0] = rs.getInt("id");
+                fila[1] = rs.getString("nombre");
+                fila[2] = rs.getString("via_administracion");
+                fila[3] = rs.getString("presentacion");
+                fila[4] = rs.getDate("fecha_cad");
                 modelo.addRow(fila);
             }
-            
-            if (!hayDatos) {
-                Object[] mensajeVacio = new Object[modelo.getColumnCount()];
-                mensajeVacio[1] = "No hay registros en la tabla medicamento."; 
-                modelo.addRow(mensajeVacio);
-            }
-            
+
+            jTable1.setModel(modelo);
+
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al consultar los datos: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al consultar los medicamentos: " + e.getMessage());
         }
     }
 
@@ -82,9 +75,10 @@ public class ConsultasMedicamentos extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaMedicamentos = new javax.swing.JTable();
+        jTable1 = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -95,81 +89,76 @@ public class ConsultasMedicamentos extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridBagLayout());
+        setTitle("Menú - Consulta de medicamentos");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel2.setText("CONSULTAS GENERALES - MEDICAMENTOS");
+        jPanel2.setPreferredSize(new java.awt.Dimension(1203, 408));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tablaMedicamentos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        tablaMedicamentos.setModel(new javax.swing.table.DefaultTableModel(
+        jLabel2.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        jLabel2.setText("CONSULTA DE MEDICAMENTOS");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre", "Via de Administración", "Presentación", "Fecha de Caducidad"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tablaMedicamentos.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tablaMedicamentos);
-        if (tablaMedicamentos.getColumnModel().getColumnCount() > 0) {
-            tablaMedicamentos.getColumnModel().getColumn(0).setResizable(false);
-            tablaMedicamentos.getColumnModel().getColumn(0).setPreferredWidth(5);
-            tablaMedicamentos.getColumnModel().getColumn(1).setResizable(false);
-            tablaMedicamentos.getColumnModel().getColumn(1).setPreferredWidth(350);
-            tablaMedicamentos.getColumnModel().getColumn(2).setResizable(false);
-            tablaMedicamentos.getColumnModel().getColumn(2).setPreferredWidth(50);
-            tablaMedicamentos.getColumnModel().getColumn(3).setResizable(false);
-            tablaMedicamentos.getColumnModel().getColumn(3).setPreferredWidth(30);
-            tablaMedicamentos.getColumnModel().getColumn(4).setResizable(false);
-            tablaMedicamentos.getColumnModel().getColumn(4).setPreferredWidth(50);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(159, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(339, 339, 339))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(140, 140, 140))))
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 815, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(305, 305, 305)
+                        .addComponent(jLabel2)))
+                .addContainerGap(422, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new java.awt.GridBagConstraints());
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 1330, -1));
 
         jMenuBar1.setBackground(new java.awt.Color(204, 204, 204));
         jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jMenuBar1.setOpaque(true);
 
         jMenu1.setText("INICIO");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -211,30 +200,48 @@ public class ConsultasMedicamentos extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
-        jMenu5.setText("MEDICAMENTOS");
-        jMenu5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu4.setText("MEDICAMENTOS");
 
-        jMenuItem6.setText("INSERTAR");
-        jMenuItem6.addActionListener(this::jMenuItem6ActionPerformed);
-        jMenu5.add(jMenuItem6);
-        jMenu5.add(jSeparator2);
-
-        jMenuItem5.setText("VER MEDICAMENTOS");
+        jMenuItem5.setText("INSERTAR");
         jMenuItem5.addActionListener(this::jMenuItem5ActionPerformed);
-        jMenu5.add(jMenuItem5);
+        jMenu4.add(jMenuItem5);
 
-        jMenuBar1.add(jMenu5);
+        jMenuItem6.setText("CONSULTAS GENERALES");
+        jMenuItem6.addActionListener(this::jMenuItem6ActionPerformed);
+        jMenu4.add(jMenuItem6);
 
-        jMenu4.setText("CERRAR SESIÓN");
-        jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu4MouseClicked(evt);
-            }
-        });
         jMenuBar1.add(jMenu4);
 
+        jMenu5.setText("CERRAR SESIÓN");
+        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu5MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu5);
+
         setJMenuBar(jMenuBar1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1268, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 531, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -274,27 +281,8 @@ public class ConsultasMedicamentos extends javax.swing.JFrame {
         ConsultasDoctores cd = new ConsultasDoctores();
         cd.setVisible(true);
         this.dispose();
+
     }//GEN-LAST:event_jMenuItem4ActionPerformed
-
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
-        InsertarMedicamento mm = new InsertarMedicamento();
-        mm.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
-
-    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
-        // TODO add your handling code here:
-
-        int cerrarSesion=JOptionPane.showConfirmDialog(this, "Estas seguro de que deseas cerrar sesión?","Confirmar cierre de sesión",
-                JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-
-        if(cerrarSesion==JOptionPane.YES_OPTION){
-            Formulario f = new Formulario();
-            f.setVisible(true);
-            this.dispose();
-        }
-    }//GEN-LAST:event_jMenu4MouseClicked
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
@@ -302,6 +290,22 @@ public class ConsultasMedicamentos extends javax.swing.JFrame {
         im.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
+        // TODO add your handling code here:
+        int cerrarSesion=JOptionPane.showConfirmDialog(this, "Estas seguro de que deseas cerrar sesión?","Confirmar cierre de sesión",
+            JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+
+        if(cerrarSesion==JOptionPane.YES_OPTION){
+            Formulario f = new Formulario();
+            f.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_jMenu5MouseClicked
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -325,7 +329,7 @@ public class ConsultasMedicamentos extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new ConsultasMedicamentos().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new InsertarMedicamento().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -342,11 +346,11 @@ public class ConsultasMedicamentos extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
-    private javax.swing.JTable tablaMedicamentos;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

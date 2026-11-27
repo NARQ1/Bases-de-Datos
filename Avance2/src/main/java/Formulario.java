@@ -158,8 +158,6 @@ public class Formulario extends javax.swing.JFrame {
         //Borrar los datos escritos cuando se presione cancelar
         obtenerUsuario.setText("");
         obtenerContrasena.setText("");
-        
-        obtenerUsuario.requestFocus();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed

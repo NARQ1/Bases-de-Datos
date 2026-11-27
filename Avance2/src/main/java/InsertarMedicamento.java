@@ -1,6 +1,4 @@
-
-import static java.awt.Frame.MAXIMIZED_BOTH;
-import javax.swing.ImageIcon;
+import java.sql.Connection;
 import javax.swing.JOptionPane;
 
 /*
@@ -10,40 +8,18 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author nesto
+ * @author zaratecold
  */
 public class InsertarMedicamento extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(InsertarMedicamento.class.getName());
 
     /**
-     * Creates new form MenuMedicamentos
+     * Creates new form InsertarMedicamento
      */
     public InsertarMedicamento() {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);      
-        setIconImage(new ImageIcon(getClass().getResource("/imagenes/nucleoDiagnostico.png")).getImage());
-        
-        adminMedicamento.removeAllItems();
-        adminMedicamento.addItem("ORAL");
-        adminMedicamento.addItem("INTRAVENOSA");
-        adminMedicamento.addItem("INSTRAMUSCULAR");
-        adminMedicamento.addItem("SUBCUTANEA");
-        adminMedicamento.addItem("TOPICA");
-        adminMedicamento.addItem("OFTALMICA");
-        adminMedicamento.addItem("RECTAL");
-        adminMedicamento.addItem("INHALATORIA");
-
-        // Presentación
-        presMedicamento.removeAllItems();
-        presMedicamento.addItem("TABLETA");
-        presMedicamento.addItem("CAPSULA");
-        presMedicamento.addItem("JARABE");
-        presMedicamento.addItem("SOLUCION INYECTABLE");
-        presMedicamento.addItem("SUSPENSION");
-        presMedicamento.addItem("CREMA");
-        presMedicamento.addItem("GOTAS");
-        presMedicamento.addItem("POMADA");
+        this.setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**
@@ -55,16 +31,17 @@ public class InsertarMedicamento extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        nombreMedicamento = new javax.swing.JTextField();
-        adminMedicamento = new javax.swing.JComboBox<>();
-        presMedicamento = new javax.swing.JComboBox<>();
-        fechaCad = new javax.swing.JFormattedTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        obtenerPresentacion = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        obtenerFecha_cad = new javax.swing.JTextField();
+        obtenerNombre = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        obtenerVia_administracion = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -77,48 +54,40 @@ public class InsertarMedicamento extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridBagLayout());
+        setTitle("Menú - Insertar medicamento");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setText("INSERTAR MEDICAMENTO");
+        jPanel2.setPreferredSize(new java.awt.Dimension(1203, 408));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        nombreMedicamento.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        nombreMedicamento.addActionListener(this::nombreMedicamentoActionPerformed);
-
-        adminMedicamento.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        adminMedicamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
-
-        presMedicamento.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        presMedicamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
-
-        fechaCad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
-        fechaCad.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Nombre");
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setText("Via de administración");
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("Presentación");
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel5.setText("Fecha de caducidad");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton1.setText("Aceptar");
+        jLabel2.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        jLabel2.setText("INSERTAR MEDICAMENTO");
+
+        jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel1.setText("Nombre");
+
+        obtenerNombre.addActionListener(this::obtenerNombreActionPerformed);
+
+        jLabel3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel3.setText("Via de administración");
+
+        obtenerVia_administracion.addActionListener(this::obtenerVia_administracionActionPerformed);
+
+        jLabel4.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel4.setText("Presentación");
+
+        jButton1.setText("Borrar");
         jButton1.addActionListener(this::jButton1ActionPerformed);
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton2.setText("Borrar");
+        jButton2.setText("Aceptar");
         jButton2.addActionListener(this::jButton2ActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -126,60 +95,70 @@ public class InsertarMedicamento extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(376, 376, 376)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel1)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(68, 68, 68)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nombreMedicamento)
-                            .addComponent(adminMedicamento, 0, 188, Short.MAX_VALUE)
-                            .addComponent(presMedicamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(fechaCad))))
-                .addContainerGap(407, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(obtenerNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(obtenerVia_administracion, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(obtenerFecha_cad, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(obtenerPresentacion, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(100, 100, 100)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(jLabel2)))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(106, 106, 106)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nombreMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(37, 37, 37)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(adminMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(82, 82, 82))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(presMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4)))
-                .addGap(49, 49, 49)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addGap(11, 11, 11))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(obtenerNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(obtenerVia_administracion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(obtenerPresentacion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(obtenerFecha_cad, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fechaCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(78, 78, 78)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(52, Short.MAX_VALUE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(182, 182, 182))
         );
 
-        getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, -1, -1));
 
         jMenuBar1.setBackground(new java.awt.Color(204, 204, 204));
         jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jMenuBar1.setOpaque(true);
 
         jMenu1.setText("INICIO");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -221,33 +200,116 @@ public class InsertarMedicamento extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
-        jMenu5.setText("MEDICAMENTOS");
-        jMenu5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu4.setText("MEDICAMENTOS");
 
-        jMenuItem6.setText("INSERTAR");
-        jMenuItem6.addActionListener(this::jMenuItem6ActionPerformed);
-        jMenu5.add(jMenuItem6);
-        jMenu5.add(jSeparator2);
-
-        jMenuItem5.setText("VER MEDICAMENTOS");
+        jMenuItem5.setText("INSERTAR");
         jMenuItem5.addActionListener(this::jMenuItem5ActionPerformed);
-        jMenu5.add(jMenuItem5);
+        jMenu4.add(jMenuItem5);
 
-        jMenuBar1.add(jMenu5);
+        jMenuItem6.setText("CONSULTAS GENERALES");
+        jMenuItem6.addActionListener(this::jMenuItem6ActionPerformed);
+        jMenu4.add(jMenuItem6);
 
-        jMenu4.setText("CERRAR SESIÓN");
-        jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenuBar1.add(jMenu4);
+
+        jMenu5.setText("CERRAR SESIÓN");
+        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu4MouseClicked(evt);
+                jMenu5MouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
 
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1268, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 531, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void obtenerNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_obtenerNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_obtenerNombreActionPerformed
+
+    private void obtenerVia_administracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_obtenerVia_administracionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_obtenerVia_administracionActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        obtenerNombre.setText("");
+        obtenerVia_administracion.setText("");
+        obtenerPresentacion.setText("");
+        obtenerFecha_cad.setText("");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:                                       
+        // Especificamos las columnas para que PostgreSQL asigne el ID autoincremental solo
+        String sql = "INSERT INTO medicamento (nombre, via_administracion, presentacion, fecha_cad) VALUES (?, ?, ?, ?)";
+
+        try {
+            String nombre = obtenerNombre.getText().trim();
+            String via_administracion = obtenerVia_administracion.getText().trim();
+            String presentacion = obtenerPresentacion.getText().trim();
+            String fecha_cad = obtenerFecha_cad.getText().trim();
+
+            // Validar que ningún campo esté vacío
+            if (nombre.isEmpty() || via_administracion.isEmpty() || presentacion.isEmpty() || fecha_cad.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor, llena todos los campos.");
+                return;
+            }
+
+            // Convertir el texto de la fecha (dd/MM/yyyy) a fecha de SQL
+            java.time.LocalDate fechaLocal = java.time.LocalDate.parse(
+                fecha_cad,
+                java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")
+            );
+
+            try (Connection conn = Conexion.conectar(); 
+                 java.sql.PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+                pstmt.setString(1, nombre);
+                pstmt.setString(2, via_administracion);
+                pstmt.setString(3, presentacion);
+                pstmt.setDate(4, java.sql.Date.valueOf(fechaLocal));
+
+                pstmt.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "¡Se ha ingresado correctamente el medicamento " + nombre + "!");
+
+                // Limpiar los campos después de guardar
+                obtenerNombre.setText("");
+                obtenerVia_administracion.setText("");
+                obtenerPresentacion.setText("");
+                obtenerFecha_cad.setText("");
+            }
+
+        } catch (java.time.format.DateTimeParseException dtpe) {
+            JOptionPane.showMessageDialog(null, "Formato de fecha incorrecto. Usa dd/MM/yyyy (ejemplo: 25/12/2027).");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al insertar los datos: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
         // TODO add your handling code here:
@@ -287,13 +349,12 @@ public class InsertarMedicamento extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
-    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
+    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
         // TODO add your handling code here:
-
         int cerrarSesion=JOptionPane.showConfirmDialog(this, "Estas seguro de que deseas cerrar sesión?","Confirmar cierre de sesión",
             JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 
@@ -302,88 +363,14 @@ public class InsertarMedicamento extends javax.swing.JFrame {
             f.setVisible(true);
             this.dispose();
         }
-    }//GEN-LAST:event_jMenu4MouseClicked
+    }//GEN-LAST:event_jMenu5MouseClicked
 
-    private void nombreMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreMedicamentoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreMedicamentoActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        nombreMedicamento.setText("");
-        adminMedicamento.setSelectedIndex(0);
-        presMedicamento.setSelectedIndex(0);
-        fechaCad.setText("");
-        nombreMedicamento.requestFocus();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        String nombre = nombreMedicamento.getText().trim();
-        String via = adminMedicamento.getSelectedItem().toString();
-        String presentacion = presMedicamento.getSelectedItem().toString();
-        String fecha = fechaCad.getText().trim();
-
-        if (nombre.isEmpty() || fecha.isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                    "Debes llenar todos los campos.");
-            return;
-        }
-
-        try {
-
-            java.text.SimpleDateFormat formato = new java.text.SimpleDateFormat("dd/MM/yyyy");
-            formato.setLenient(false);
-
-            java.util.Date fechaConvertida = formato.parse(fecha);
-            java.sql.Date fechaCaducidad = new java.sql.Date(fechaConvertida.getTime());
-
-            java.sql.Connection conexion = Conexion.conectar();
-
-            String sql = "INSERT INTO medicamento "
-                    + "(nombre, via_administracion, presentacion, fecha_cad) "
-                    + "VALUES (?, ?, ?, ?)";
-
-            java.sql.PreparedStatement pst = conexion.prepareStatement(sql);
-
-            pst.setString(1, nombre);
-            pst.setString(2, via);
-            pst.setString(3, presentacion);
-            pst.setDate(4, fechaCaducidad);
-
-            pst.executeUpdate();
-
-            JOptionPane.showMessageDialog(this,
-                    "Medicamento registrado correctamente!");
-
-            pst.close();
-            conexion.close();
-
-            nombreMedicamento.setText("");
-            adminMedicamento.setSelectedIndex(0);
-            presMedicamento.setSelectedIndex(0);
-            fechaCad.setText("");
-
-        } catch (java.text.ParseException e) {
-
-            JOptionPane.showMessageDialog(this,
-                    "Fecha incorrecta.\nUtiliza el formato DD/MM/YYYY.");
-
-        } catch (java.sql.SQLException e) {
-
-            JOptionPane.showMessageDialog(this,
-                    "Error al registrar: " + e.getMessage());
-
-        }
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
         ConsultasMedicamentos cm = new ConsultasMedicamentos();
         cm.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -411,8 +398,6 @@ public class InsertarMedicamento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> adminMedicamento;
-    private javax.swing.JFormattedTextField fechaCad;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -433,10 +418,12 @@ public class InsertarMedicamento extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
-    private javax.swing.JTextField nombreMedicamento;
-    private javax.swing.JComboBox<String> presMedicamento;
+    private javax.swing.JTextField obtenerFecha_cad;
+    private javax.swing.JTextField obtenerNombre;
+    private javax.swing.JTextField obtenerPresentacion;
+    private javax.swing.JTextField obtenerVia_administracion;
     // End of variables declaration//GEN-END:variables
 }
