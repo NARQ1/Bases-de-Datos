@@ -108,6 +108,7 @@ public class ConsultasDoctores extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1220, 720));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
+        tablaDoctores.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tablaDoctores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -159,7 +160,7 @@ public class ConsultasDoctores extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1123, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(355, 355, 355)
+                .addGap(363, 363, 363)
                 .addComponent(jLabel1)
                 .addGap(0, 0, Short.MAX_VALUE))
         );

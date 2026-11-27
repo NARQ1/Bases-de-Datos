@@ -107,6 +107,7 @@ public class ConsultasPacientes extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menú - Consultas Pacientes");
 
+        tablaPacientes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tablaPacientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -127,7 +128,19 @@ public class ConsultasPacientes extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaPacientes.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tablaPacientes);
+        if (tablaPacientes.getColumnModel().getColumnCount() > 0) {
+            tablaPacientes.getColumnModel().getColumn(0).setResizable(false);
+            tablaPacientes.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tablaPacientes.getColumnModel().getColumn(1).setResizable(false);
+            tablaPacientes.getColumnModel().getColumn(2).setResizable(false);
+            tablaPacientes.getColumnModel().getColumn(3).setResizable(false);
+            tablaPacientes.getColumnModel().getColumn(4).setResizable(false);
+            tablaPacientes.getColumnModel().getColumn(5).setResizable(false);
+            tablaPacientes.getColumnModel().getColumn(6).setResizable(false);
+            tablaPacientes.getColumnModel().getColumn(7).setResizable(false);
+        }
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("CONSULTAS GENERALES - PACIENTE");

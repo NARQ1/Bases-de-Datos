@@ -108,6 +108,7 @@ public class ConsultasEmpleados extends javax.swing.JFrame {
 
         jPanel2.setToolTipText("");
 
+        tablaEmpleados.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tablaEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
@@ -236,8 +237,8 @@ public class ConsultasEmpleados extends javax.swing.JFrame {
 
     private void botonInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonInicioMouseClicked
         // TODO add your handling code here:
-        MenuEmpleados me = new MenuEmpleados();
-        me.setVisible(true);
+        MenuPrincipal mp = new MenuPrincipal();
+        mp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonInicioMouseClicked
 
