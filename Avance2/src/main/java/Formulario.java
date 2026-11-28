@@ -256,6 +256,10 @@ public class Formulario extends javax.swing.JFrame {
         return nombreCorto;
     }
     
+    public static String getNombreUsuarioLogueado() {
+        return nombreUsuarioLogueado;
+    }
+    
     /**
      * @param args the command line arguments
      */

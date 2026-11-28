@@ -149,11 +149,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu5.setText("MEDICAMENTOS");
         jMenu5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        jMenuItem6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenuItem6.setText("INSERTAR");
         jMenuItem6.addActionListener(this::jMenuItem6ActionPerformed);
         jMenu5.add(jMenuItem6);
         jMenu5.add(jSeparator4);
 
+        jMenuItem7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenuItem7.setText("VER MEDICAMENTOS");
         jMenuItem7.addActionListener(this::jMenuItem7ActionPerformed);
         jMenu5.add(jMenuItem7);

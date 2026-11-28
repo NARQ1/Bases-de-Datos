@@ -102,6 +102,7 @@ public class ConsultasMedicamentos extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menú - Consultar Medicamentos");
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -298,9 +299,6 @@ public class ConsultasMedicamentos extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-        InsertarMedicamento im = new InsertarMedicamento();
-        im.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
